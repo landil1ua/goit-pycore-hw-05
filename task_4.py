@@ -44,6 +44,8 @@ def change_contact(args, contacts):
         (str): результат операції
     '''
     name, new_phone = args
+    if name not in contacts:
+        raise KeyError('Contact not found')
     contacts[name] = new_phone
     return 'Contact updated'
 
