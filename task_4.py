@@ -17,6 +17,7 @@ def input_error(func):
             return "Please enter a name."
     return inner
 
+
 @input_error
 def add_contact(args, contacts):
     '''
@@ -27,12 +28,10 @@ def add_contact(args, contacts):
     Returns:
         (str): результат операції
     '''
-    if len(args) != 2:
-        raise ValueError()
     name, phone = args
     contacts[name] = phone
-
     return 'Contact added'
+
 
 @input_error
 def change_contact(args, contacts):
@@ -44,13 +43,10 @@ def change_contact(args, contacts):
     Returns:
         (str): результат операції
     '''
-    if len(args) != 2:
-        raise ValueError()
     name, new_phone = args
-    if name not in contacts:
-        raise KeyError()
     contacts[name] = new_phone
     return 'Contact updated'
+
 
 @input_error
 def show_phone(args, contacts):
@@ -62,12 +58,8 @@ def show_phone(args, contacts):
     Returns:
         (str): результат операції
     '''
-    if not args:
-        raise IndexError()
     name = args[0]
-    phone = contacts.get(name)
-    if not phone:
-        raise KeyError()
+    phone = contacts[name]
     return f'[{phone}]'
 
 
@@ -83,7 +75,6 @@ def show_all(contacts):
         return 'No added contacts'
     lines = [f"{name}: [{contacts[name]}]" for name in sorted(contacts)]
     return "\n".join(lines)
-
 
 
 def parse_input(user_input):
@@ -103,10 +94,8 @@ def parse_input(user_input):
     return cmd, *args
 
 
-
-
 def main():
-    contacts = {} # словник із контактами (поки що у форматі dict)
+    contacts = {}  # словник із контактами (поки що у форматі dict)
 
     print('Welcome to the assistant bot!')
     while True:
@@ -138,8 +127,6 @@ def main():
 
         else:
             print('Invalid command')
-
-
 
 
 if __name__ == '__main__':
