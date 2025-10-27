@@ -45,7 +45,7 @@ def change_contact(args, contacts):
     '''
     name, new_phone = args
     if name not in contacts:
-        raise KeyError('Contact not found')
+        raise KeyError()
     contacts[name] = new_phone
     return 'Contact updated'
 
