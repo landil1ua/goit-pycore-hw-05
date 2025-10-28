@@ -1,4 +1,5 @@
 import sys
+import os
 from my_tabulate import my_tabulate as tabulate
 
 
@@ -81,10 +82,15 @@ def main(argv):
 
     # перевірка наявності необхідних аргументів
     if len_argv < 2:
+        print("Usage: python task_3.py <log_path> [<log_level>]")
         return -1
     log_path = argv[1]
     if len_argv > 2:
         level = argv[-1]
+
+    if not os.path.exists(log_path):
+        print(f"Error: File '{log_path}' does not exist.")
+        return -1
 
     logs = load_logs(log_path)  # завантаження логів з файлу
     counts = count_logs_by_level(logs)  # підрахунок логів за рівнем
@@ -100,12 +106,15 @@ def main(argv):
         for i in details_level:
             print(f"{i['date']} {i['time']} - {i['message']}")
         print('\n')
-    else:  # якщо рівень вказано, але логів для цього рівня немає
+    elif level and not details_level:  # якщо рівень не вказано
         print(f'\nЛоги для рівня {level.upper()} відсутні.\n')
+    else:  # якщо рівень вказано, але логів для цього рівня немає
+        return 0
 
     # успішне завершення
     return 0
 
 
 if __name__ == '__main__':
+
     sys.exit(main(sys.argv))

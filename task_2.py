@@ -10,7 +10,7 @@ def generator_numbers(text: str):
     Returns:
         generator: генератор зі знайденими числами
     '''
-    for i in re.findall(r' \d+\.\d+|\d+ ', text):
+    for i in re.findall(r' \d+\.\d+ | \d+ ', text):
         yield float(i)
 
 
